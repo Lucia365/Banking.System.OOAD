@@ -20,10 +20,7 @@ public class RegisterCustomerView {
     public void show(Stage stage) {
 
         Label title = new Label("REGISTER CUSTOMER");
-        title.setStyle(
-                "-fx-font-size: 24px;" +
-                        "-fx-font-weight: bold;"
-        );
+        title.setStyle("-fx-font-size: 24px;" + "-fx-font-weight: bold;");
 
         TextField customerId = new TextField();
         customerId.setPromptText("Customer ID");
@@ -38,10 +35,7 @@ public class RegisterCustomerView {
         address.setPromptText("Address");
 
         ComboBox<String> customerType = new ComboBox<>();
-        customerType.getItems().addAll(
-                "Individual Customer",
-                "Company Customer"
-        );
+        customerType.getItems().addAll("Individual Customer", "Company Customer");
         customerType.setPromptText("Select Customer Type");
         customerType.setMaxWidth(Double.MAX_VALUE);
 
@@ -61,20 +55,11 @@ public class RegisterCustomerView {
         companyAddress.setPromptText("Company Address");
 
         TextField registrationNumber = new TextField();
-        registrationNumber.setPromptText(
-                "Company Registration Number"
-        );
+        registrationNumber.setPromptText("Company Registration Number");
 
-        VBox individualFields = new VBox(
-                14, nationalId, dateOfBirth
-        );
+        VBox individualFields = new VBox(14, nationalId, dateOfBirth);
 
-        VBox companyFields = new VBox(
-                14,
-                companyName,
-                companyAddress,
-                registrationNumber
-        );
+        VBox companyFields = new VBox(14, companyName, companyAddress, registrationNumber);
 
         individualFields.setVisible(false);
         individualFields.setManaged(false);
@@ -118,36 +103,24 @@ public class RegisterCustomerView {
                     customerAddress.isEmpty() ||
                     type == null) {
 
-                showAlert(
-                        Alert.AlertType.WARNING,
-                        "Missing Information",
-                        "Please fill in all customer details."
-                );
+                showAlert(Alert.AlertType.WARNING, "Missing Information", "Please fill in all customer details.");
                 return;
             }
-
             try {
 
                 Customer customer;
-
                 if (type.equals("Individual Customer")) {
 
-                    String nationalIdText =
-                            nationalId.getText().trim();
+                    String nationalIdText = nationalId.getText().trim();
 
                     if (nationalIdText.isEmpty() ||
                             dateOfBirth.getValue() == null) {
 
-                        showAlert(
-                                Alert.AlertType.WARNING,
-                                "Missing Information",
-                                "Enter National ID and Date of Birth."
-                        );
+                        showAlert(Alert.AlertType.WARNING, "Missing Information", "Enter National ID and Date of Birth.");
                         return;
                     }
 
-                    int idNumber =
-                            Integer.parseInt(nationalIdText);
+                    int idNumber = Integer.parseInt(nationalIdText);
 
                     if (idNumber <= 0 ||
                             dateOfBirth.getValue().isAfter(
@@ -157,84 +130,40 @@ public class RegisterCustomerView {
                         );
                     }
 
-                    customer = new IndividualCustomer(
-                            id,
-                            name,
-                            lastName,
-                            customerAddress,
-                            new ArrayList<>(),
-                            type,
-                            idNumber,
-                            dateOfBirth.getValue().toString()
-                    );
+                    customer = new IndividualCustomer(id, name, lastName, customerAddress, new ArrayList<>(), type, idNumber, dateOfBirth.getValue().toString());
 
                 } else if (type.equals("Company Customer")) {
 
-                    String cName =
-                            companyName.getText().trim();
-
-                    String cAddress =
-                            companyAddress.getText().trim();
-
-                    String regText =
-                            registrationNumber.getText().trim();
+                    String cName = companyName.getText().trim();
+                    String cAddress = companyAddress.getText().trim();
+                    String regText = registrationNumber.getText().trim();
 
                     if (cName.isEmpty() ||
                             cAddress.isEmpty() ||
                             regText.isEmpty()) {
 
-                        showAlert(
-                                Alert.AlertType.WARNING,
-                                "Missing Information",
-                                "Please enter all company details."
-                        );
+                        showAlert(Alert.AlertType.WARNING, "Missing Information", "Please enter all company details.");
                         return;
                     }
-
-                    int regNumber =
-                            Integer.parseInt(regText);
+                    int regNumber = Integer.parseInt(regText);
 
                     if (regNumber <= 0) {
                         throw new IllegalArgumentException(
                                 "Registration number must be positive."
                         );
                     }
-
-                    customer = new CompanyCustomer(
-                            id,
-                            name,
-                            lastName,
-                            customerAddress,
-                            new ArrayList<>(),
-                            type,
-                            cName,
-                            cAddress,
-                            regNumber
-                    );
-
+                    customer = new CompanyCustomer(id, name, lastName, customerAddress, new ArrayList<>(), type, cName, cAddress, regNumber);
                 } else {
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Invalid Type",
-                            "Please select a valid customer type."
+                    showAlert(Alert.AlertType.ERROR, "Invalid Type", "Please select a valid customer type."
                     );
                     return;
                 }
 
                 // Save using the shared controller
-                boolean registered =
-                        BankingContext.CUSTOMERS
-                                .registerCustomer(customer);
+                boolean registered = BankingContext.CUSTOMERS.registerCustomer(customer);
 
                 if (registered) {
-
-                    showAlert(
-                            Alert.AlertType.INFORMATION,
-                            "Registration Successful",
-                            "Customer " + name + " " +
-                                    lastName +
-                                    " registered successfully!"
-                    );
+                    showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Customer " + name + " " + lastName + " registered successfully!");
 
                     // Clear fields after successful registration
                     customerId.clear();
@@ -260,28 +189,16 @@ public class RegisterCustomerView {
 
                 } else {
 
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Registration Failed",
-                            "Customer ID already exists or is invalid."
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Registration Failed", "Customer ID already exists or is invalid.");
                 }
 
             } catch (NumberFormatException ex) {
 
-                showAlert(
-                        Alert.AlertType.ERROR,
-                        "Invalid Number",
-                        "National ID and registration number must contain only digits within the supported range."
-                );
+                showAlert(Alert.AlertType.ERROR, "Invalid Number", "National ID and registration number must contain only digits within the supported range.");
 
             } catch (IllegalArgumentException ex) {
 
-                showAlert(
-                        Alert.AlertType.ERROR,
-                        "Invalid Information",
-                        ex.getMessage()
-                );
+                showAlert(Alert.AlertType.ERROR, "Invalid Information", ex.getMessage());
             }
         });
 
@@ -294,28 +211,13 @@ public class RegisterCustomerView {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(35));
 
-        layout.getChildren().addAll(
-                title,
-                customerId,
-                firstName,
-                surname,
-                address,
-                customerType,
-                individualFields,
-                companyFields,
-                registerButton,
-                backButton
-        );
+        layout.getChildren().addAll(title, customerId, firstName, surname, address, customerType, individualFields, companyFields, registerButton, backButton);
 
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
-        scrollPane.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
+        scrollPane.setStyle("-fx-background-color: #F4F8FC;");
 
-        layout.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
+        layout.setStyle("-fx-background-color: #F4F8FC;");
 
         Scene scene = new Scene(scrollPane, 500, 550);
 

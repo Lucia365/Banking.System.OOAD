@@ -20,11 +20,7 @@ public class OpenAccountView {
     public void show(Stage stage) {
 
         Label title = new Label("OPEN BANK ACCOUNT");
-        title.setStyle(
-                "-fx-font-size: 24px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #17365D;"
-        );
+        title.setStyle("-fx-font-size: 24px;" + "-fx-font-weight: bold;" + "-fx-text-fill: #17365D;");
 
         TextField customerId = new TextField();
         customerId.setPromptText("Customer ID");

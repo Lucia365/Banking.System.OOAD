@@ -46,7 +46,6 @@ public class CustomerController {
         }
 
         String customerId = customer.getCustomerId();
-
         if (customerId == null ||
                 customerId.isBlank()) {
             return false;
@@ -61,7 +60,6 @@ public class CustomerController {
 
             // Save customer permanently in MySQL
             boolean saved = customerDAO.addCustomer(customer);
-
             if (saved) {
 
                 // Add to memory only after database success
@@ -88,9 +86,7 @@ public class CustomerController {
         // Search existing in-memory customers first
         for (Customer customer : customers) {
 
-            if (customerId.equals(
-                    customer.getCustomerId())) {
-
+            if (customerId.equals(customer.getCustomerId())) {
                 return customer;
             }
         }
@@ -98,8 +94,7 @@ public class CustomerController {
         // Search MySQL if not found in memory
         try {
 
-            Customer customer =
-                    customerDAO.findCustomer(customerId);
+            Customer customer = customerDAO.findCustomer(customerId);
 
             if (customer != null) {
                 customers.add(customer);
@@ -109,30 +104,23 @@ public class CustomerController {
 
         } catch (SQLException e) {
 
-            System.err.println(
-                    "Customer search failed: "
-                            + e.getMessage()
-            );
-
+            System.err.println("Customer search failed: " + e.getMessage());
             return null;
         }
     }
 
     // VIEW ALL CUSTOMERS
     public List<Customer> getAllCustomers() {
-
         return new ArrayList<>(customers);
     }
 
     // COUNT TOTAL CUSTOMERS
     public int getTotalCustomers() {
-
         return customers.size();
     }
 
     // REFRESH CUSTOMERS FROM MYSQL
     public void refreshCustomers() {
-
         loadCustomers();
     }
 }

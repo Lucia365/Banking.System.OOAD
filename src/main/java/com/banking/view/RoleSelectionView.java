@@ -16,35 +16,18 @@ public class RoleSelectionView {
     public void show(Stage stage) {
 
         Label title = new Label("BANKING SYSTEM");
-        title.setStyle(
-                "-fx-font-size: 28px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #17365D;"
-        );
+        title.setStyle("-fx-font-size: 28px;" + "-fx-font-weight: bold;" + "-fx-text-fill: #17365D;");
 
-        Label subtitle =
-                new Label("Welcome! Please select your role");
-
-        Button adminButton =
-                new Button("Administrator Login");
-
-        Button customerButton =
-                new Button("Customer Login");
+        Label subtitle = new Label("Welcome! Please select your role");
+        Button adminButton = new Button("Administrator Login");
+        Button customerButton = new Button("Customer Login");
 
         adminButton.setPrefWidth(250);
         customerButton.setPrefWidth(250);
 
-        adminButton.setStyle(
-                "-fx-background-color: #17365D;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 15px;"
-        );
+        adminButton.setStyle("-fx-background-color: #17365D;" + "-fx-text-fill: white;" + "-fx-font-size: 15px;");
 
-        customerButton.setStyle(
-                "-fx-background-color: #2874A6;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 15px;"
-        );
+        customerButton.setStyle("-fx-background-color: #2874A6;" + "-fx-text-fill: white;" + "-fx-font-size: 15px;");
 
         // ADMINISTRATOR BUTTON
         adminButton.setOnAction(e -> {
