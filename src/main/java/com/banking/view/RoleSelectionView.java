@@ -19,7 +19,7 @@ public class RoleSelectionView {
         title.setStyle("-fx-font-size: 28px;" + "-fx-font-weight: bold;" + "-fx-text-fill: #17365D;");
 
         Label subtitle = new Label("Welcome! Please select your role");
-        Button adminButton = new Button("Administrator Login");
+        Button adminButton = new Button("Bank Clerk Login");
         Button customerButton = new Button("Customer Login");
 
         adminButton.setPrefWidth(250);
@@ -42,7 +42,6 @@ public class RoleSelectionView {
         customerButton.setOnAction(e -> {
 
             BankingContext.LOGIN.selectRole("Customer");
-
             LoginView login = new LoginView();
             login.show(stage, "Customer");
         });
@@ -52,16 +51,9 @@ public class RoleSelectionView {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(30));
 
-        layout.getChildren().addAll(
-                title,
-                subtitle,
-                adminButton,
-                customerButton
-        );
+        layout.getChildren().addAll(title, subtitle, adminButton, customerButton);
 
-        layout.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
+        layout.setStyle("-fx-background-color: #F4F8FC;");
 
         Scene scene = new Scene(layout, 500, 400);
 

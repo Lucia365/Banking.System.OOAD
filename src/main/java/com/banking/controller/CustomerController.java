@@ -29,18 +29,14 @@ public class CustomerController {
             customers.clear();
             customers.addAll(customerDAO.getAllCustomers()
             );
-
             System.out.println("Customers loaded from MySQL: " + customers.size());
-
         } catch (SQLException e) {
-
             System.err.println("Failed to load customers: " + e.getMessage());
         }
     }
 
     // REGISTER NEW CUSTOMER
     public boolean registerCustomer(Customer customer) {
-
         if (customer == null) {
             return false;
         }
@@ -57,11 +53,9 @@ public class CustomerController {
         }
 
         try {
-
             // Save customer permanently in MySQL
             boolean saved = customerDAO.addCustomer(customer);
             if (saved) {
-
                 // Add to memory only after database success
                 customers.add(customer);
                 System.out.println("Customer registered successfully: " + customerId);
@@ -69,7 +63,6 @@ public class CustomerController {
             }
 
         } catch (SQLException e) {
-
             System.err.println("Customer registration failed: " + e.getMessage());
         }
         return false;
@@ -77,7 +70,6 @@ public class CustomerController {
 
     // FIND CUSTOMER BY ID
     public Customer findCustomer(String customerId) {
-
         if (customerId == null ||
                 customerId.isBlank()) {
             return null;
@@ -85,7 +77,6 @@ public class CustomerController {
 
         // Search existing in-memory customers first
         for (Customer customer : customers) {
-
             if (customerId.equals(customer.getCustomerId())) {
                 return customer;
             }
@@ -93,13 +84,10 @@ public class CustomerController {
 
         // Search MySQL if not found in memory
         try {
-
             Customer customer = customerDAO.findCustomer(customerId);
-
             if (customer != null) {
                 customers.add(customer);
             }
-
             return customer;
 
         } catch (SQLException e) {

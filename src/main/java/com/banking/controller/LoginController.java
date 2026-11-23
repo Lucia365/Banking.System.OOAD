@@ -10,25 +10,20 @@ public class LoginController {
             return false;
         }
 
-        if (role.equalsIgnoreCase("Administrator")
+        if (role.equalsIgnoreCase("Bank Clerk")
                 || role.equalsIgnoreCase("Customer")) {
             selectedRole = role;
             return true;
         }
-
         return false;
     }
 
     public String getSelectedRole() {
         return selectedRole;
     }
+    public boolean authenticate(String username, String password) {
 
-    public boolean authenticate(String username,
-                                String password) {
-
-        if (selectedRole == null ||
-                username == null ||
-                password == null) {
+        if (selectedRole == null || username == null || password == null) {
             return false;
         }
 

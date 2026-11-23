@@ -35,11 +35,7 @@ public class OpenAccountView {
         initialDeposit.setPromptText("Initial Deposit (BWP)");
 
         ComboBox<String> accountType = new ComboBox<>();
-        accountType.getItems().addAll(
-                "Savings Account",
-                "Investment Account",
-                "Cheque Account"
-        );
+        accountType.getItems().addAll("Savings Account", "Investment Account", "Cheque Account");
         accountType.setPromptText("Select Account Type");
         accountType.setMaxWidth(Double.MAX_VALUE);
 
@@ -60,15 +56,7 @@ public class OpenAccountView {
         TextField monthlyFee = new TextField();
         monthlyFee.setPromptText("Monthly Account Fee (BWP)");
 
-        VBox chequeFields = new VBox(
-                15,
-                employerName,
-                employerAddress,
-                monthlySalary,
-                chequeNumber,
-                monthlyFee
-        );
-
+        VBox chequeFields = new VBox(15, employerName, employerAddress, monthlySalary, chequeNumber, monthlyFee);
         chequeFields.setVisible(false);
         chequeFields.setManaged(false);
 
@@ -89,17 +77,9 @@ public class OpenAccountView {
         Button openButton = new Button("Open Account");
         Button backButton = new Button("Back");
 
-        openButton.setStyle(
-                "-fx-background-color: #17365D;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 14px;"
-        );
+        openButton.setStyle("-fx-background-color: #17365D;" + "-fx-text-fill: white;" + "-fx-font-size: 14px;");
 
-        backButton.setStyle(
-                "-fx-background-color: #2874A6;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 14px;"
-        );
+        backButton.setStyle("-fx-background-color: #2874A6;" + "-fx-text-fill: white;" + "-fx-font-size: 14px;");
 
         // OPEN ACCOUNT BUTTON
 
@@ -117,11 +97,7 @@ public class OpenAccountView {
                     depositText.isEmpty() ||
                     type == null) {
 
-                showAlert(
-                        Alert.AlertType.WARNING,
-                        "Missing Information",
-                        "Please fill in all required fields."
-                );
+                showAlert(Alert.AlertType.WARNING, "Missing Information", "Please fill in all required fields.");
                 return;
             }
 
@@ -131,26 +107,17 @@ public class OpenAccountView {
 
                 if (!Double.isFinite(deposit) || deposit < 0) {
 
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Invalid Deposit",
-                            "Initial deposit must be a valid non-negative amount."
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Invalid Deposit", "Initial deposit must be a valid non-negative amount.");
                     return;
                 }
 
                 // FIND REGISTERED CUSTOMER
 
-                Customer customer =
-                        BankingContext.CUSTOMERS.findCustomer(id);
+                Customer customer = BankingContext.CUSTOMERS.findCustomer(id);
 
                 if (customer == null) {
 
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Customer Not Found",
-                            "Please register this customer before opening an account."
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Customer Not Found", "Please register this customer before opening an account.");
                     return;
                 }
 
@@ -158,65 +125,33 @@ public class OpenAccountView {
 
                 if (BankingContext.ACCOUNTS.findAccount(number) != null) {
 
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Duplicate Account",
-                            "This account number already exists."
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Duplicate Account", "This account number already exists.");
                     return;
                 }
 
                 Account account;
 
                 switch (type) {
-
                     case "Savings Account":
-
-                        account = new SavingsAccount(
-                                number,
-                                deposit,
-                                branchName,
-                                0.0005
-                        );
+                        account = new SavingsAccount(number, deposit, branchName, 0.0005);
                         break;
 
                     case "Investment Account":
-
                         if (deposit < 500) {
-
-                            showAlert(
-                                    Alert.AlertType.WARNING,
-                                    "Minimum Deposit Required",
-                                    "Investment accounts require at least BWP 500."
-                            );
+                            showAlert(Alert.AlertType.WARNING, "Minimum Deposit Required", "Investment accounts require at least BWP 500.");
                             return;
                         }
 
-                        account = new InvestmentAccount(
-                                number,
-                                deposit,
-                                branchName,
-                                0.05,
-                                500.00
-                        );
+                        account = new InvestmentAccount(number, deposit, branchName, 0.05, 500.00);
                         break;
 
                     case "Cheque Account":
 
-                        String employer =
-                                employerName.getText().trim();
-
-                        String employerLocation =
-                                employerAddress.getText().trim();
-
-                        String salaryText =
-                                monthlySalary.getText().trim();
-
-                        String cheque =
-                                chequeNumber.getText().trim();
-
-                        String feeText =
-                                monthlyFee.getText().trim();
+                        String employer = employerName.getText().trim();
+                        String employerLocation = employerAddress.getText().trim();
+                        String salaryText = monthlySalary.getText().trim();
+                        String cheque = chequeNumber.getText().trim();
+                        String feeText = monthlyFee.getText().trim();
 
                         if (employer.isEmpty() ||
                                 employerLocation.isEmpty() ||
@@ -224,89 +159,44 @@ public class OpenAccountView {
                                 cheque.isEmpty() ||
                                 feeText.isEmpty()) {
 
-                            showAlert(
-                                    Alert.AlertType.WARNING,
-                                    "Missing Cheque Details",
-                                    "Please complete all employment and cheque details."
-                            );
+                            showAlert(Alert.AlertType.WARNING, "Missing Cheque Details", "Please complete all employment and cheque details.");
                             return;
                         }
-
-                        double salary =
-                                Double.parseDouble(salaryText);
-
-                        double fee =
-                                Double.parseDouble(feeText);
+                        double salary = Double.parseDouble(salaryText);
+                        double fee = Double.parseDouble(feeText);
 
                         if (!Double.isFinite(salary) || salary <= 0) {
 
-                            showAlert(
-                                    Alert.AlertType.ERROR,
-                                    "Invalid Salary",
-                                    "Monthly salary must be greater than zero."
-                            );
+                            showAlert(Alert.AlertType.ERROR, "Invalid Salary", "Monthly salary must be greater than zero.");
                             return;
                         }
 
                         if (!Double.isFinite(fee) || fee < 0) {
 
-                            showAlert(
-                                    Alert.AlertType.ERROR,
-                                    "Invalid Monthly Fee",
-                                    "Monthly fee must be a valid non-negative amount."
-                            );
+                            showAlert(Alert.AlertType.ERROR, "Invalid Monthly Fee", "Monthly fee must be a valid non-negative amount.");
                             return;
                         }
 
                         // KEEP ORIGINAL CHEQUE ACCOUNT CONSTRUCTOR
 
-                        account = new ChequeAccount(
-                                number,
-                                deposit,
-                                branchName,
-                                cheque,
-                                fee
-                        );
+                        account = new ChequeAccount(number, deposit, branchName, cheque, fee);
                         break;
 
                     default:
-
-                        showAlert(
-                                Alert.AlertType.ERROR,
-                                "Invalid Account Type",
-                                "Please select a valid account type."
-                        );
+                        showAlert(Alert.AlertType.ERROR, "Invalid Account Type", "Please select a valid account type.");
                         return;
                 }
 
                 // SAVE ACCOUNT
 
                 boolean opened;
-
                 if (account instanceof ChequeAccount) {
-
-                    opened = BankingContext.ACCOUNTS.openChequeAccount(
-                            customer,
-                            (ChequeAccount) account,
-                            employerName.getText().trim(),
-                            employerAddress.getText().trim(),
-                            Double.parseDouble(
-                                    monthlySalary.getText().trim()
-                            )
-                    );
-
+                    opened = BankingContext.ACCOUNTS.openChequeAccount(customer, (ChequeAccount) account, employerName.getText().trim(), employerAddress.getText().trim(), Double.parseDouble(monthlySalary.getText().trim()));
                 } else {
-
-                    opened = BankingContext.ADMIN.openAccount(
-                            customer,
-                            account
-                    );
+                    opened = BankingContext.ADMIN.openAccount(customer, account);
                 }
-
                 if (opened) {
-
-                    showAlert(
-                            Alert.AlertType.INFORMATION,
+                    showAlert(Alert.AlertType.INFORMATION,
                             "Account Created",
                             "Account opened successfully!\n\n" +
                                     "Customer ID: " + id + "\n" +
@@ -337,21 +227,12 @@ public class OpenAccountView {
                     chequeFields.setManaged(false);
 
                 } else {
-
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Account Creation Failed",
-                            "Unable to open account. Check the account details."
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Account Creation Failed", "Unable to open account. Check the account details.");
                 }
 
             } catch (NumberFormatException ex) {
 
-                showAlert(
-                        Alert.AlertType.ERROR,
-                        "Invalid Number",
-                        "Please enter valid numeric values for deposit, salary and monthly fee."
-                );
+                showAlert(Alert.AlertType.ERROR, "Invalid Number", "Please enter valid numeric values for deposit, salary and monthly fee.");
             }
         });
 
@@ -367,21 +248,9 @@ public class OpenAccountView {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(35));
 
-        layout.getChildren().addAll(
-                title,
-                customerId,
-                accountNumber,
-                branch,
-                initialDeposit,
-                accountType,
-                chequeFields,
-                openButton,
-                backButton
-        );
+        layout.getChildren().addAll(title, customerId, accountNumber, branch, initialDeposit, accountType, chequeFields, openButton, backButton);
 
-        layout.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
+        layout.setStyle("-fx-background-color: #F4F8FC;");
 
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);

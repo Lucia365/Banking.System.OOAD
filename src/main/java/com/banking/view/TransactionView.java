@@ -78,7 +78,6 @@ public class TransactionView {
                                     String.format("Amount: BWP %.2f%n", transactionAmount) +
                                     balanceText
                     );
-
                     accountNumber.clear();
                     amount.clear();
 
@@ -97,7 +96,6 @@ public class TransactionView {
         backButton.setOnAction(e ->
                 new CustomerView().show(stage)
         );
-
         VBox layout = new VBox(18);
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(35));

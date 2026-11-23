@@ -18,31 +18,21 @@ public class CustomerView {
 
     public void show(Stage stage) {
 
-        Label title = new Label("CUSTOMER DASHBOARD");
+        Label title = new Label("CUSTOMER");
 
-        title.setStyle(
-                "-fx-font-size: 25px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #17365D;"
-        );
+        title.setStyle("-fx-font-size: 25px;" + "-fx-font-weight: bold;" + "-fx-text-fill: #17365D;");
 
-        Label subtitle =
-                new Label("Welcome to your account");
+        Label subtitle = new Label("Welcome to your account");
 
-        Button depositButton =
-                new Button("Deposit Funds");
+        Button depositButton = new Button("Deposit Funds");
 
-        Button withdrawButton =
-                new Button("Withdraw Funds");
+        Button withdrawButton = new Button("Withdraw Funds");
 
-        Button balanceButton =
-                new Button("Check Balance");
+        Button balanceButton = new Button("Check Balance");
 
-        Button historyButton =
-                new Button("Transaction History");
+        Button historyButton = new Button("Transaction History");
 
-        Button logoutButton =
-                new Button("Logout");
+        Button logoutButton = new Button("Logout");
 
         Button[] buttons = {
                 depositButton,
@@ -57,12 +47,7 @@ public class CustomerView {
             button.setPrefWidth(280);
             button.setPrefHeight(42);
 
-            button.setStyle(
-                    "-fx-background-color: #2874A6;" +
-                            "-fx-text-fill: white;" +
-                            "-fx-font-size: 14px;" +
-                            "-fx-background-radius: 8;"
-            );
+            button.setStyle("-fx-background-color: #2874A6;" + "-fx-text-fill: white;" + "-fx-font-size: 14px;" + "-fx-background-radius: 8;");
         }
 
         // DEPOSIT FUNDS
@@ -89,35 +74,20 @@ public class CustomerView {
                 String number = input.trim();
 
                 if (number.isEmpty()) {
-                    showAlert(
-                            Alert.AlertType.WARNING,
-                            "Missing Account Number",
-                            "Please enter an account number."
-                    );
+                    showAlert(Alert.AlertType.WARNING, "Missing Account Number", "Please enter an account number.");
                     return;
                 }
 
-                Double balance =
-                        BankingContext.ACCOUNTS.checkBalance(number);
+                Double balance = BankingContext.ACCOUNTS.checkBalance(number);
 
                 if (balance == null) {
 
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Account Not Found",
-                            "The account could not be found " +
-                                    "or its balance could not be retrieved."
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Account Not Found", "The account could not be found " + "or its balance could not be retrieved.");
 
                 } else {
 
-                    showAlert(
-                            Alert.AlertType.INFORMATION,
-                            "Account Balance",
-                            String.format(
-                                    "Account Number: %s%nBalance: BWP %.2f",
-                                    number, balance
-                            )
+                    showAlert(Alert.AlertType.INFORMATION, "Account Balance",
+                            String.format("Account Number: %s%nBalance: BWP %.2f", number, balance)
                     );
                 }
             });
@@ -137,21 +107,13 @@ public class CustomerView {
                 String number = input.trim();
 
                 if (number.isEmpty()) {
-
-                    showAlert(
-                            Alert.AlertType.WARNING,
-                            "Missing Account Number",
-                            "Please enter an account number."
-                    );
-
+                    showAlert(Alert.AlertType.WARNING, "Missing Account Number", "Please enter an account number.");
                     return;
                 }
 
                 try {
 
-                    List<TransactionHistory> transactions =
-                            BankingContext.ACCOUNTS
-                                    .getTransactionHistory(number);
+                    List<TransactionHistory> transactions = BankingContext.ACCOUNTS.getTransactionHistory(number);
 
                     StringBuilder details = new StringBuilder();
 
@@ -161,9 +123,7 @@ public class CustomerView {
 
                     if (transactions.isEmpty()) {
 
-                        details.append(
-                                "No transactions found for this account."
-                        );
+                        details.append("No transactions found for this account.");
 
                     } else {
 
@@ -199,12 +159,7 @@ public class CustomerView {
 
                 } catch (SQLException ex) {
 
-                    showAlert(
-                            Alert.AlertType.ERROR,
-                            "Database Error",
-                            "Unable to retrieve transactions:\n" +
-                                    ex.getMessage()
-                    );
+                    showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to retrieve transactions:\n" + ex.getMessage());
                 }
             });
         });
@@ -222,19 +177,9 @@ public class CustomerView {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(30));
 
-        layout.getChildren().addAll(
-                title,
-                subtitle,
-                depositButton,
-                withdrawButton,
-                balanceButton,
-                historyButton,
-                logoutButton
-        );
+        layout.getChildren().addAll(title, subtitle, depositButton, withdrawButton, balanceButton, historyButton, logoutButton);
 
-        layout.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
+        layout.setStyle("-fx-background-color: #F4F8FC;");
 
         Scene scene = new Scene(layout, 600, 550);
 
@@ -243,10 +188,7 @@ public class CustomerView {
         stage.show();
     }
 
-    private void showAlert(
-            Alert.AlertType type,
-            String heading,
-            String message) {
+    private void showAlert(Alert.AlertType type, String heading, String message) {
 
         Alert alert = new Alert(type);
         alert.setTitle(heading);
@@ -255,9 +197,7 @@ public class CustomerView {
         alert.showAndWait();
     }
 
-    private void showDetails(
-            String heading,
-            String information) {
+    private void showDetails(String heading, String information) {
 
         Dialog<Void> dialog = new Dialog<>();
 

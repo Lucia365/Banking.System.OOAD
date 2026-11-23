@@ -69,14 +69,9 @@ public class RegisterCustomerView {
 
         // Show fields based on customer type
         customerType.setOnAction(e -> {
+            boolean individual = "Individual Customer".equals(customerType.getValue());
 
-            boolean individual = "Individual Customer".equals(
-                    customerType.getValue()
-            );
-
-            boolean company = "Company Customer".equals(
-                    customerType.getValue()
-            );
+            boolean company = "Company Customer".equals(customerType.getValue());
 
             individualFields.setVisible(individual);
             individualFields.setManaged(individual);
@@ -97,39 +92,22 @@ public class RegisterCustomerView {
             String customerAddress = address.getText().trim();
             String type = customerType.getValue();
 
-            if (id.isEmpty() ||
-                    name.isEmpty() ||
-                    lastName.isEmpty() ||
-                    customerAddress.isEmpty() ||
-                    type == null) {
-
+            if (id.isEmpty() || name.isEmpty() || lastName.isEmpty() || customerAddress.isEmpty() || type == null) {
                 showAlert(Alert.AlertType.WARNING, "Missing Information", "Please fill in all customer details.");
                 return;
             }
             try {
-
                 Customer customer;
                 if (type.equals("Individual Customer")) {
-
                     String nationalIdText = nationalId.getText().trim();
-
-                    if (nationalIdText.isEmpty() ||
-                            dateOfBirth.getValue() == null) {
-
+                    if (nationalIdText.isEmpty() || dateOfBirth.getValue() == null) {
                         showAlert(Alert.AlertType.WARNING, "Missing Information", "Enter National ID and Date of Birth.");
                         return;
                     }
-
                     int idNumber = Integer.parseInt(nationalIdText);
-
-                    if (idNumber <= 0 ||
-                            dateOfBirth.getValue().isAfter(
-                                    java.time.LocalDate.now())) {
-                        throw new IllegalArgumentException(
-                                "Invalid National ID or date of birth."
-                        );
+                    if (idNumber <= 0 || dateOfBirth.getValue().isAfter(java.time.LocalDate.now())) {
+                        throw new IllegalArgumentException("Invalid National ID or date of birth.");
                     }
-
                     customer = new IndividualCustomer(id, name, lastName, customerAddress, new ArrayList<>(), type, idNumber, dateOfBirth.getValue().toString());
 
                 } else if (type.equals("Company Customer")) {
@@ -138,19 +116,13 @@ public class RegisterCustomerView {
                     String cAddress = companyAddress.getText().trim();
                     String regText = registrationNumber.getText().trim();
 
-                    if (cName.isEmpty() ||
-                            cAddress.isEmpty() ||
-                            regText.isEmpty()) {
-
+                    if (cName.isEmpty() || cAddress.isEmpty() || regText.isEmpty()) {
                         showAlert(Alert.AlertType.WARNING, "Missing Information", "Please enter all company details.");
                         return;
                     }
                     int regNumber = Integer.parseInt(regText);
-
                     if (regNumber <= 0) {
-                        throw new IllegalArgumentException(
-                                "Registration number must be positive."
-                        );
+                        throw new IllegalArgumentException("Registration number must be positive.");
                     }
                     customer = new CompanyCustomer(id, name, lastName, customerAddress, new ArrayList<>(), type, cName, cAddress, regNumber);
                 } else {

@@ -15,38 +15,27 @@ public class CustomerHomeController {
     }
 
     // Deposit money
-    public boolean depositMoney(String accountNumber,
-                                double amount) {
-
-        return accountController.deposit(
-                accountNumber, amount);
+    public boolean depositMoney(String accountNumber, double amount) {
+        return accountController.deposit(accountNumber, amount);
     }
 
     // Withdraw money
-    public boolean withdrawMoney(String accountNumber,
-                                 double amount) {
-
-        return accountController.withdraw(
-                accountNumber, amount);
+    public boolean withdrawMoney(String accountNumber, double amount) {
+        return accountController.withdraw(accountNumber, amount);
     }
 
     // Check balance
     public Double viewBalance(String accountNumber) {
-
-        return accountController.checkBalance(
-                accountNumber);
+        return accountController.checkBalance(accountNumber);
     }
 
     // Search account
     public Account searchAccount(String accountNumber) {
-
-        return accountController.findAccount(
-                accountNumber);
+        return accountController.findAccount(accountNumber);
     }
 
     // Retrieve accounts
     public List<Account> getAccounts() {
-
         return accountController.getAllAccounts();
     }
 }

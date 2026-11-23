@@ -23,20 +23,13 @@ public class LoginView {
 
         // Ensure the login controller knows the selected role
         if (!BankingContext.LOGIN.selectRole(role)) {
-            new Alert(
-                    Alert.AlertType.ERROR,
-                    "Invalid user role."
-            ).showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Invalid user role.").showAndWait();
             return;
         }
 
         Label title = new Label(role + " Login");
 
-        title.setStyle(
-                "-fx-font-size: 26px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #17365D;"
-        );
+        title.setStyle("-fx-font-size: 26px;" + "-fx-font-weight: bold;" + "-fx-text-fill: #17365D;");
 
         // Username field
         usernameField = new TextField();
@@ -52,11 +45,7 @@ public class LoginView {
         loginButton = new Button("Login");
         loginButton.setPrefWidth(270);
 
-        loginButton.setStyle(
-                "-fx-background-color: #17365D;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 15px;"
-        );
+        loginButton.setStyle("-fx-background-color: #17365D;" + "-fx-text-fill: white;" + "-fx-font-size: 15px;");
 
         // LOGIN BUTTON FUNCTIONALITY
         loginButton.setOnAction(e -> {
@@ -70,24 +59,17 @@ public class LoginView {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Missing Information");
                 alert.setHeaderText("Login Failed");
-                alert.setContentText(
-                        "Please enter your username and password."
-                );
+                alert.setContentText("Please enter your username and password.");
                 alert.showAndWait();
                 return;
             }
 
             // Authenticate through LoginController
-            boolean valid =
-                    BankingContext.LOGIN.authenticate(
-                            username,
-                            password
-                    );
+            boolean valid = BankingContext.LOGIN.authenticate(username, password);
 
             if (valid) {
 
-                Alert alert = new Alert(
-                        Alert.AlertType.INFORMATION
+                Alert alert = new Alert(Alert.AlertType.INFORMATION
                 );
 
                 alert.setTitle("Login Successful");
@@ -98,13 +80,11 @@ public class LoginView {
                 alert.showAndWait();
 
                 // Open the correct dashboard
-                if (selectedRole.equalsIgnoreCase(
-                        "Administrator")) {
+                if (selectedRole.equalsIgnoreCase("Administrator")) {
 
                     new AdministratorView().show(stage);
 
-                } else if (selectedRole.equalsIgnoreCase(
-                        "Customer")) {
+                } else if (selectedRole.equalsIgnoreCase("Customer")) {
 
                     new CustomerView().show(stage);
                 }
@@ -141,17 +121,9 @@ public class LoginView {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(30));
 
-        layout.getChildren().addAll(
-                title,
-                usernameField,
-                passwordField,
-                loginButton,
-                backButton
-        );
+        layout.getChildren().addAll(title, usernameField, passwordField, loginButton, backButton);
 
-        layout.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
+        layout.setStyle("-fx-background-color: #F4F8FC;");
 
         // Scene
         Scene scene = new Scene(layout, 450, 400);

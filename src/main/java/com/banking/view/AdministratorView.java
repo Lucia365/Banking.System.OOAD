@@ -18,30 +18,24 @@ public class AdministratorView {
 
     public void show(Stage stage) {
 
-        Label title = new Label("ADMINISTRATOR DASHBOARD");
+        Label title = new Label("BANK CLERK");
         title.setStyle(
                 "-fx-font-size: 25px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-text-fill: #17365D;"
         );
 
-        Label subtitle =
-                new Label("Banking System Management");
+        Label subtitle = new Label("Banking System Management");
 
-        Button registerButton =
-                new Button("Register Customer");
+        Button registerButton = new Button("Register Customer");
 
-        Button openAccountButton =
-                new Button("Open Account");
+        Button openAccountButton = new Button("Open Account");
 
-        Button viewCustomersButton =
-                new Button("View Customers");
+        Button viewCustomersButton = new Button("View Customers");
 
-        Button transactionsButton =
-                new Button("Transaction History");
+        Button transactionsButton = new Button("Transaction History");
 
-        Button logoutButton =
-                new Button("Logout");
+        Button logoutButton = new Button("Logout");
 
         Button[] buttons = {
                 registerButton,
@@ -83,15 +77,11 @@ public class AdministratorView {
             StringBuilder details = new StringBuilder();
 
             if (customers.isEmpty()) {
-
                 details.append(
                         "No customers have been registered yet."
                 );
-
             } else {
-
                 for (Customer customer : customers) {
-
                     details.append("Customer ID: ")
                             .append(customer.getCustomerId())
                             .append("\n");
@@ -156,7 +146,7 @@ public class AdministratorView {
             }
 
             showDetails(
-                    "Account Summary",
+                    "Transaction History",
                     details.toString()
             );
         });
@@ -174,26 +164,11 @@ public class AdministratorView {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(30));
 
-        layout.getChildren().addAll(
-                title,
-                subtitle,
-                registerButton,
-                openAccountButton,
-                viewCustomersButton,
-                transactionsButton,
-                logoutButton
-        );
+        layout.getChildren().addAll(title, subtitle, registerButton, openAccountButton, viewCustomersButton, transactionsButton, logoutButton);
 
-        layout.setStyle(
-                "-fx-background-color: #F4F8FC;"
-        );
-
+        layout.setStyle("-fx-background-color: #F4F8FC;");
         Scene scene = new Scene(layout, 600, 550);
-
-        stage.setTitle(
-                "Banking System - Administrator"
-        );
-
+        stage.setTitle("Banking System - Administrator");
         stage.setScene(scene);
         stage.show();
     }
