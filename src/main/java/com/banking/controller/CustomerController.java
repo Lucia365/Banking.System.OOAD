@@ -27,21 +27,14 @@ public class CustomerController {
 
         try {
             customers.clear();
-            customers.addAll(
-                    customerDAO.getAllCustomers()
+            customers.addAll(customerDAO.getAllCustomers()
             );
 
-            System.out.println(
-                    "Customers loaded from MySQL: "
-                            + customers.size()
-            );
+            System.out.println("Customers loaded from MySQL: " + customers.size());
 
         } catch (SQLException e) {
 
-            System.err.println(
-                    "Failed to load customers: "
-                            + e.getMessage()
-            );
+            System.err.println("Failed to load customers: " + e.getMessage());
         }
     }
 
@@ -67,30 +60,20 @@ public class CustomerController {
         try {
 
             // Save customer permanently in MySQL
-            boolean saved =
-                    customerDAO.addCustomer(customer);
+            boolean saved = customerDAO.addCustomer(customer);
 
             if (saved) {
 
                 // Add to memory only after database success
                 customers.add(customer);
-
-                System.out.println(
-                        "Customer registered successfully: "
-                                + customerId
-                );
-
+                System.out.println("Customer registered successfully: " + customerId);
                 return true;
             }
 
         } catch (SQLException e) {
 
-            System.err.println(
-                    "Customer registration failed: "
-                            + e.getMessage()
-            );
+            System.err.println("Customer registration failed: " + e.getMessage());
         }
-
         return false;
     }
 

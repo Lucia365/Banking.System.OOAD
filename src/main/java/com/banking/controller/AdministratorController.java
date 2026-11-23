@@ -14,11 +14,11 @@ public class AdministratorController {
 
     public AdministratorController(
             CustomerController customerController,
-            AccountController accountController) {
 
-        this.customerController = customerController;
-        this.accountController = accountController;
-    }
+            AccountController accountController) {
+                this.customerController = customerController;
+                 this.accountController = accountController;
+            }
 
     // REGISTER CUSTOMER
 
@@ -28,13 +28,8 @@ public class AdministratorController {
 
     // OPEN SAVINGS OR INVESTMENT ACCOUNT
 
-    public boolean openAccount(Customer customer,
-                               Account account) {
-
-        return accountController.openAccount(
-                customer,
-                account
-        );
+    public boolean openAccount(Customer customer, Account account) {
+        return accountController.openAccount(customer, account);
     }
 
     // OPEN CHEQUE ACCOUNT WITH EMPLOYMENT DETAILS
