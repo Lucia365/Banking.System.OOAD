@@ -18,7 +18,7 @@ public class AdministratorView {
 
     public void show(Stage stage) {
 
-        Label title = new Label("BANK CLERK");
+        Label title = new Label("ADMINISTRATOR");
         title.setStyle(
                 "-fx-font-size: 25px;" +
                         "-fx-font-weight: bold;" +

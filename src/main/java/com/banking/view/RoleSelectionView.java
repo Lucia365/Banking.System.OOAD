@@ -19,7 +19,7 @@ public class RoleSelectionView {
         title.setStyle("-fx-font-size: 28px;" + "-fx-font-weight: bold;" + "-fx-text-fill: #17365D;");
 
         Label subtitle = new Label("Welcome! Please select your role");
-        Button adminButton = new Button("Bank Clerk Login");
+        Button adminButton = new Button("Administrator Login");
         Button customerButton = new Button("Customer Login");
 
         adminButton.setPrefWidth(250);

@@ -5,22 +5,29 @@ public class LoginController {
 
     private String selectedRole;
 
+    // SELECT USER ROLE
     public boolean selectRole(String role) {
+
         if (role == null) {
             return false;
         }
 
-        if (role.equalsIgnoreCase("Bank Clerk")
+        if (role.equalsIgnoreCase("Administrator")
                 || role.equalsIgnoreCase("Customer")) {
+
             selectedRole = role;
             return true;
         }
+
         return false;
     }
 
+    // GET SELECTED ROLE
     public String getSelectedRole() {
         return selectedRole;
     }
+
+    // AUTHENTICATE USER
     public boolean authenticate(String username, String password) {
 
         if (selectedRole == null || username == null || password == null) {
@@ -40,6 +47,7 @@ public class LoginController {
         return false;
     }
 
+    // LOGOUT
     public void logout() {
         selectedRole = null;
     }
